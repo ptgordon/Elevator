@@ -3,47 +3,53 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 entity gen_counter is
-generic (
-		max :positive   -- what is the max value of the counter ( modulus )
+	generic (
+		wide : positive;
+		max: positive
 		);
-port (
-		clk		:in	std_logic; -- system clock
-		--data	:in std_logic_vector( 3 downto 0 ); -- data in for parallel load, use unsigned(data) to cast to unsigned
-		--load	:in std_logic; -- signal to load data into i_count i_count <= unsigned(data);
-		enable	:in std_logic; -- clock enable
-		--reset	:in std_logic; -- reset to zeros use i_count <= (others => '0' ) since size depends on generic
-		count	:out std_logic_vector( 3 downto 0 ); -- count out
-		term	:out std_logic -- maximum count is reached
+	port (
+		clk : in std_logic;
+		inc : in std_logic;
+		data : in std_logic_vector(wide-1 downto 0);
+		load : in std_logic;
+		enable : in std_logic;
+		reset : in std_logic;
+		count : out std_logic_vector(wide-1 downto 0);
+		term : out std_logic
 		);
-	end;
-	
+end;
+
 architecture rtl of gen_counter is
--- use a signal of type unsigned for counting
-signal  i_count	:unsigned ( 3 downto 0) := "0000";
-signal  i_term :std_logic := 0;
-
-begin
-cnt: process( clk ) begin
-	if ( rising_edge(clk) ) then
-		if 
-		
-	end if;
-end process;
-
--- I always like to use a seperate process to generate the terminal count
-chk: process (i_count) begin
-		-- if-then-else statements to generate terminal count go here
-		
-		
-end process;
-
--- this is how we drive the count to the output.
-if enable = '1' then
-	count <= std_logic_vector( i_count );
-end if;
-
-term  <= i_term;
-
+	signal i_count : unsigned(wide-1 downto 0) := (others => '0');
+	signal i_term :std_logic := '0';
+	
+	begin
+		reset_load: process(clk, load, reset, data, inc) begin
+			if (rising_edge(clk)) then 
+				if (reset = '1') then
+					i_count <= (others => '0');
+					i_term <= '0';
+				elsif load = '1' then
+					i_count <= unsigned(data);
+					i_term <= '0';
+				elsif (inc = '1') and (i_count < max) then
+					i_count <= i_count + 1;
+					i_term <= '0';
+				elsif (inc = '1') and (i_count = max) then
+					i_count <= (others => '0');
+					i_term <= i_term;
+				end if;
+				
+				term <= i_term;
+				
+				if (enable = '1') then
+					count <= std_logic_vector(i_count);
+				else
+					count <= (others => 'Z');
+				end if;
+				
+			end if;
+		end process;
 end;
 				
 		
