@@ -1,0 +1,71 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
+
+entity alarm_clock is
+	port (
+		clk: in std_logic;
+		enable : in std_logic;--_vector (9 downto 0);
+		max: out std_logic;--_vector (9 downto 0);
+		display : out std_logic_vector (6 downto 0)
+		
+	);
+end entity alarm_clock;
+
+architecture logic of alarm_clock is
+	
+	component seconds_clock
+		port (
+			clk : in STD_LOGIC;
+			seconds_clk: out std_logic
+		);
+	end component seconds_clock;
+	
+	component counter
+		generic (
+			count_max : unsigned
+		);
+		PORT (
+			clk : in STD_LOGIC;
+			increment : in std_logic;
+			enable : in STD_LOGIC;
+			max : out std_logic;
+			count_out : out unsigned (3 downto 0)
+		);
+	end component counter;
+	
+	component display_driver
+		PORT (
+			input : in unsigned (3 downto 0);
+			display : out std_logic_vector (6 downto 0)
+		);
+	end component display_driver;
+	
+	signal seconds : std_logic;
+	signal count_out : unsigned (3 downto 0);
+
+begin
+	
+	u1: seconds_clock port map (
+		clk => clk,
+		seconds_clk => seconds
+	);
+	
+	u2: counter 
+	generic map (
+		count_max => "1001"
+	)
+	port map (
+		clk => clk,
+		increment => seconds,
+		enable => enable,
+		max => max,
+		count_out => count_out
+	);	
+	
+	u3: display_driver port map (
+		input => count_out,
+		display => display
+	);
+	
+end architecture logic;
