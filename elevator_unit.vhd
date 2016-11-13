@@ -39,9 +39,19 @@ function set_target(
 	direction : std_logic_vector;
 	stop_map : std_logic_vector
 	) return std_logic_vector is
-	signal target_vector : std_logic_vector( :=
+	signal target_vector : std_logic_vector
 	begin
-	target_vector
+		target_vector := (others => '0');
+		target_vector(floor_wide) := '1';
+		for i in 0 to top_floor loop
+			if stop_map(i) = '1' then
+				target_vector = i;
+				if direction = "10" then
+					exit;
+				end if;
+			end if;
+		return target_vector;
+	end set_target;
 	
 
 StateMem: process (clk) begin
