@@ -5,7 +5,6 @@ USE ieee.numeric_std.all;
 entity elevator_unit is
 generic (
 	floor_wide : positive;
-	stop_wide : positive;
 	top_floor :positive   -- what is the max value of the counter ( modulus )
 	);
 port (
@@ -19,7 +18,7 @@ port (
 	dir : out std_logic_vector(1 downto 0);
 	current_floor,
 	target_floor: out unsigned(floor_wide-1 downto 0);
-	stop_map	: out std_logic_vector(stop_wide downto 0)
+	stop_map	: out std_logic_vector(top_floor downto 0)
 	);
 end;
 
@@ -35,7 +34,7 @@ architecture elevator_unit1 of elevator_unit is
 	signal i_dir : std_logic_vector(1 downto 0);
 	signal i_current_floor, i_target_floor, i_next_floor : unsigned(floor_wide-1 downto 0);
 	signal i_target_vector : unsigned(floor_wide downto 0);
-	signal i_stop_map : std_logic_vector(stop_wide downto 0);
+	signal i_stop_map : std_logic_vector(top_floor downto 0);
 	function set_target(
 		top_floor : positive;
 		direction : std_logic_vector;
