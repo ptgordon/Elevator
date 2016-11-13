@@ -1,0 +1,23 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity elevator_unit is
+generic (
+	floor_wide : positive;
+	stop_wide : positive;
+	top_floor :positive   -- what is the max value of the counter ( modulus )
+	);
+port (
+	clk,
+	load_request,
+	door_open,
+	state_shift: in	std_logic; -- system clock
+	request_floor : in std_logic_vector(floor_wide-1 downto 0);
+	door : out std_logic_vector;
+	direction : out std_logic_vector(1 downto 0);
+	current_floor,
+	target_floor: out std_logic_vector(floor_wide-1 downto 0);
+	stop_map	: out std_logic_vector(stop_wide downto 0)
+	);
+end;
