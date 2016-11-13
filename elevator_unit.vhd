@@ -33,10 +33,11 @@ signal state, next_state: elevator_state;
 signal i_door std_logic := '0';
 signal i_dir std_logic_vector(1 downto 0);
 signal i_current_floor, i_target_floor std_logic_vector(floor_wide-1 downto 0);
+signal i_target_vector std_logic_vector(floor_wide downto 0);
 signal i_stop_map std_logic_vector(stop_wide downto 0);
 function set_target(
-	top_floor : positive;
-	direction : std_logic_vector;
+	top_floor : positive,
+	direction : std_logic_vector,
 	stop_map : std_logic_vector
 	) return std_logic_vector is
 	signal target_vector : std_logic_vector
@@ -68,6 +69,7 @@ NS: process(state)begin
 	case state is
 		when idle =>
 		when up =>
+			i_target_vector <= set_target(top_floor, up, i_stop_map);
 		when down =>
 		when door_open =>
 	end;
