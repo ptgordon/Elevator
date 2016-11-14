@@ -31,7 +31,7 @@ architecture elevator_unit1 of elevator_unit is
 	signal state, next_state: elevator_state;
 	signal i_status : std_logic := '1';
 	signal i_door : std_logic := '0';
-	signal i_dir : std_logic_vector(1 downto 0);
+	signal door_state : std_logic := '0';
 	signal i_current_floor, i_target_floor, i_next_floor : unsigned(floor_wide-1 downto 0);
 	signal i_target_vector : unsigned(floor_wide downto 0);
 	signal i_stop_map : std_logic_vector(top_floor downto 0);
@@ -62,8 +62,11 @@ architecture elevator_unit1 of elevator_unit is
 			--if direct_load = '1' then
 				--stop_map(to_integer(direct_vector)) <= '1';
 			--end if;
+			if door_state = '1' then
+				i_stop_map(to_integer(i_current_floor)) <= '0';
+			end if;
 			
-			if load_request = '1' then
+			if load_request = '0' then
 				i_stop_map(to_integer(request_floor)) <= '1';
 			end if;
 		end if;
@@ -77,11 +80,24 @@ architecture elevator_unit1 of elevator_unit is
 				i_door <= open_req;
 				if state_shift = '1' then
 					state <= next_state;
-					i_door <= '0';
+					i_door <= '1';
 				end if;
 			end if;
 		end if;
 	end process;
+	
+	dir_set: process (clk) begin
+		if (rising_edge(clk)) then
+			if i_target_floor > i_current_floor then
+				dir <= up;
+			elsif i_target_floor < i_current_floor then
+				dir <= down;
+			else
+				dir <= idle;
+			end if;
+		end if;
+	end process;
+				
 
 	NS: process (state) begin
 		next_state <= state;
@@ -90,7 +106,7 @@ architecture elevator_unit1 of elevator_unit is
 				i_target_vector <= set_target(top_floor, idle, i_stop_map);
 				i_target_floor <= i_target_vector(floor_wide-1 downto 0);
 				i_status <= i_target_vector(floor_wide);
-				if i_door = '1' then
+				if i_door = '0' then
 					next_state <= door_open;
 				elsif i_status = '0' then
 					if i_target_floor > i_current_floor then
@@ -123,8 +139,7 @@ architecture elevator_unit1 of elevator_unit is
 				end if;
 			
 			when door_open =>
-				i_stop_map(to_integer(i_current_floor)) <= '0';
-				if i_door = '0' then
+				if i_door = '1' then
 					if i_target_floor = i_current_floor then
 						i_target_vector <= set_target(top_floor, door_open, i_stop_map);
 						i_target_floor <= i_target_vector(floor_wide-1 downto 0);
@@ -148,18 +163,16 @@ architecture elevator_unit1 of elevator_unit is
 	
 	Oput : process(state) begin
 		door <= '0';
-		dir <= idle;
+		door_state <= '0';
 		current_floor <= i_current_floor;
 		target_floor <= i_target_floor;
 		stop_map <= i_stop_map;
 		case state is
 			when idle =>
 			when up =>
-				dir <= up;
 			when down =>
-				dir <= down;
 			when door_open =>
-				door <= '1';
+				door_state <= '1';
 		end case;
 	end process;
 end;			
