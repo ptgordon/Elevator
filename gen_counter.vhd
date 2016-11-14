@@ -37,7 +37,7 @@ architecture rtl of gen_counter is
 					i_term <= '0';
 				elsif (inc = '1') and (i_count = max) then
 					i_count <= (others => '0');
-					i_term <= i_term;
+					i_term <= '1';
 				end if;
 				
 				term <= i_term;

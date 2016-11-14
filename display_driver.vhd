@@ -28,17 +28,17 @@ BEGIN
 		elsif (input = "0100") then
 			display <= "0011001";
 		elsif (input = "0101") then
-			display <= "0010011";
+			display <= "0010010";
 		elsif (input = "0110") then
-			display <= "0000001";
+			display <= "0000010";
 		elsif (input = "0111") then
 			display <= "1111000";
 		elsif (input = "1000") then
 			display <= "0000000";
 		elsif (input = "1001") then
-			display <= "0000100";
+			display <= "0010000";
 		else
-			display <= "0110000";
+			display <= "0000110";
 		END IF;
 	END PROCESS;
 END display_driver1;

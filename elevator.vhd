@@ -12,7 +12,8 @@ entity elevator is
 		HEX1 : out std_logic_vector(6 downto 0);
 		HEX2 : out std_logic_vector(6 downto 0);
 		HEX3 : out std_logic_vector(6 downto 0);
-		HEX4 : out std_logic_vector(6 downto 0)
+		HEX4 : out std_logic_vector(6 downto 0);
+		HEX5 : out std_logic_vector(6 downto 0)
 	);
 end entity elevator;
 
@@ -66,13 +67,14 @@ architecture logic of elevator is
 			reset,
 			load_request,
 			state_shift,
-			open_req: in	std_logic; -- system clock
+			open_req: in	std_logic; 
 			request_floor : in unsigned(floor_wide-1 downto 0);
 			door : out std_logic;
 			dir : out std_logic_vector(1 downto 0);
 			current_floor,
 			target_floor: out unsigned(floor_wide-1 downto 0);
-			stop_map	: out std_logic_vector(top_floor downto 0)
+			stop_map	: out std_logic_vector(top_floor downto 0);
+			currentstate : out unsigned(3 downto 0)
 		);
 	end component elevator_unit;
 	
@@ -81,7 +83,7 @@ architecture logic of elevator is
 	signal up_down : std_logic_vector(1 downto 0);
 	signal current_floor : unsigned (3 downto 0);
 	signal target_floor : unsigned (3 downto 0);
-	
+	signal currentstate : unsigned(3 downto 0);
 	
 
 begin
@@ -89,7 +91,7 @@ begin
 	u1: gen_counter
 		generic map (
 			wide => 28,
-			max => 100000000
+			max => 50000000
 		) port map (
 			clk => CLOCK_50,
 			inc => '1',
@@ -117,7 +119,8 @@ begin
 			dir => up_down,
 			current_floor=> current_floor,
 			target_floor=> target_floor,
-			stop_map	=> LEDR
+			stop_map	=> LEDR,
+			currentstate => currentstate
 		);
 	
 	u3: display_driver
@@ -148,6 +151,12 @@ begin
 		port map (
 			input => target_floor,
 			display => HEX4
+		);
+		
+	u8: display_driver
+		port map(
+			input => currentstate,
+			display => HEX5
 		);
 		
 end architecture logic;

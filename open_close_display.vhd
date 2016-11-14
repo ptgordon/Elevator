@@ -17,7 +17,7 @@ BEGIN
 	PROCESS (input)
 	BEGIN
 		display <= "1111111";
-		IF (input = '0') then
+		IF (input = '1') then
 			display <= "0100011";
 		else
 			display <= "0100111";

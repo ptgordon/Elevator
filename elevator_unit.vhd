@@ -4,21 +4,22 @@ USE ieee.numeric_std.all;
 
 entity elevator_unit is
 generic (
-	floor_wide : positive;
+	floor_wide : positive;  --how many bits to support counter
 	top_floor :positive   -- what is the max value of the counter ( modulus )
 	);
 port (
-	clk,
-	reset,
-	load_request,
-	state_shift,
+	clk,  --system clock
+	reset,  -- not used
+	load_request,  --button that loads the request
+	state_shift,  --commands shift change
 	open_req: in	std_logic; -- system clock
-	request_floor : in unsigned(floor_wide-1 downto 0);
-	door : out std_logic;
-	dir : out std_logic_vector(1 downto 0);
-	current_floor,
-	target_floor: out unsigned(floor_wide-1 downto 0);
-	stop_map	: out std_logic_vector(top_floor downto 0)
+	request_floor : in unsigned(floor_wide-1 downto 0);  -- floor address being requested
+	door : out std_logic;  --open or closed
+	dir : out std_logic_vector(1 downto 0);  -- up or down or idle
+	current_floor,  --displays current floor
+	target_floor: out unsigned(floor_wide-1 downto 0); --displays target floor
+	stop_map	: out std_logic_vector(top_floor downto 0); --displays stop map
+	currentstate : out unsigned(3 downto 0)
 	);
 end;
 
@@ -28,13 +29,15 @@ architecture elevator_unit1 of elevator_unit is
 	constant up : std_logic_vector(1 downto 0) := "01";
 	constant down : std_logic_vector(1 downto 0) := "10";
 	constant door_open : std_logic_vector(1 downto 0) := "11";
-	signal state, next_state: elevator_state;
-	signal i_status : std_logic := '1';
+	signal state, next_state: elevator_state := idle;
+	signal prev_status, i_status : std_logic := '1';
 	signal i_door : std_logic := '0';
 	signal door_state : std_logic := '0';
-	signal i_current_floor, i_target_floor, i_next_floor : unsigned(floor_wide-1 downto 0);
-	signal i_target_vector : unsigned(floor_wide downto 0);
-	signal i_stop_map : std_logic_vector(top_floor downto 0);
+	signal i_current_floor: unsigned(floor_wide-1 downto 0) := (others => '0'); 
+	signal prev_target_floor, i_target_floor : unsigned (floor_wide-1 downto 0) := (others => '0');
+	signal prev_next_floor,i_next_floor : unsigned(floor_wide-1 downto 0) := (others => '0');
+	signal prev_target_vector, i_target_vector : unsigned(floor_wide downto 0) := (others => '0');
+	signal i_stop_map : std_logic_vector(top_floor downto 0) := (others => '0');
 	function set_target(
 		top_floor : positive;
 		direction : std_logic_vector;
@@ -76,11 +79,16 @@ architecture elevator_unit1 of elevator_unit is
       if (rising_edge(clk)) then
 			if reset = '1' THEN
 				state <= idle;
+			
 			else
-				i_door <= open_req;
+				if open_req = '0' then
+					i_door <= '1';
+				end if;
+				
 				if state_shift = '1' then
 					state <= next_state;
-					i_door <= '1';
+					i_current_floor <= i_next_floor;
+					i_door <= '0';
 				end if;
 			end if;
 		end if;
@@ -98,15 +106,27 @@ architecture elevator_unit1 of elevator_unit is
 		end if;
 	end process;
 				
+	avoid_latch: process (clk) begin
+		if (rising_edge(clk)) then
+			prev_target_vector <= i_target_vector;
+			prev_target_floor <= i_target_floor;
+			prev_status <= i_status;
+			prev_next_floor <= i_next_floor;
+		end if;
+	end process;
 
-	NS: process (state) begin
+	NS: process (state, prev_target_vector, prev_target_floor, prev_status, prev_next_floor, i_stop_map, i_target_vector, i_door, i_status, i_target_floor, i_current_floor, i_next_floor ) begin
 		next_state <= state;
+		i_target_vector <= prev_target_vector;
+		i_target_floor <= prev_target_floor;
+		i_status <= prev_status;
+		i_next_floor <= prev_next_floor;
 		case state is
 			when idle =>
 				i_target_vector <= set_target(top_floor, idle, i_stop_map);
 				i_target_floor <= i_target_vector(floor_wide-1 downto 0);
 				i_status <= i_target_vector(floor_wide);
-				if i_door = '0' then
+				if i_door = '1' then
 					next_state <= door_open;
 				elsif i_status = '0' then
 					if i_target_floor > i_current_floor then
@@ -139,7 +159,7 @@ architecture elevator_unit1 of elevator_unit is
 				end if;
 			
 			when door_open =>
-				if i_door = '1' then
+				if i_door = '0' then
 					if i_target_floor = i_current_floor then
 						i_target_vector <= set_target(top_floor, door_open, i_stop_map);
 						i_target_floor <= i_target_vector(floor_wide-1 downto 0);
@@ -161,17 +181,21 @@ architecture elevator_unit1 of elevator_unit is
 			end case;
 		end process;
 	
-	Oput : process(state) begin
-		door <= '0';
+	Oput : process(state, i_current_floor, i_target_floor, i_stop_map, i_door) begin
 		door_state <= '0';
 		current_floor <= i_current_floor;
 		target_floor <= i_target_floor;
 		stop_map <= i_stop_map;
+		door <= i_door;
 		case state is
 			when idle =>
+				currentstate <= "0000";
 			when up =>
+				currentstate <= "0001";
 			when down =>
+				currentstate <= "0010";
 			when door_open =>
+				currentstate <= "0011";
 				door_state <= '1';
 		end case;
 	end process;
