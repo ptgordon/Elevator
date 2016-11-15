@@ -159,10 +159,10 @@ architecture elevator_unit1 of elevator_unit is
 				elsif i_status = '0' then
 					if i_target_floor > i_current_floor then
 						next_state <= up;
-						i_next_floor <= i_current_floor + 1;
+						--i_next_floor <= i_current_floor + 1;
 					elsif i_target_floor < i_current_floor then
 						next_state <= down;
-						i_next_floor <= i_current_floor - 1;
+						--i_next_floor <= i_current_floor - 1;
 					else
 						next_state <= idle;
 					end if;
@@ -191,6 +191,9 @@ architecture elevator_unit1 of elevator_unit is
 				currentstate <= "0011";
 				door_state <= '1';
 				door <= '1';
+				if i_dir = idle then
+					target_floor <= i_current_floor;
+				end if;
 		end case;
 	end process;
 end;			

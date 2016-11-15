@@ -1,5 +1,5 @@
 Fitter report for elevator
-Mon Nov 14 23:01:47 2016
+Mon Nov 14 23:40:44 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -64,15 +64,15 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Fitter Summary                                                                ;
 +---------------------------------+---------------------------------------------+
-; Fitter Status                   ; Successful - Mon Nov 14 23:01:47 2016       ;
+; Fitter Status                   ; Successful - Mon Nov 14 23:40:44 2016       ;
 ; Quartus Prime Version           ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                   ; elevator                                    ;
 ; Top-level Entity Name           ; elevator                                    ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 106 / 32,070 ( < 1 % )                      ;
-; Total registers                 ; 69                                          ;
+; Logic utilization (in ALMs)     ; 103 / 32,070 ( < 1 % )                      ;
+; Total registers                 ; 77                                          ;
 ; Total pins                      ; 59 / 457 ( 13 % )                           ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0 / 4,065,280 ( 0 % )                       ;
@@ -224,21 +224,29 @@ agreement for further details.
 +----------+--------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter Netlist Optimizations                                                                                                                                                                                                                              ;
-+-------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+-----------------------------------------------+------------------+-----------------------+
-; Node                                ; Action     ; Operation                                         ; Reason                     ; Node Port ; Node Port Name ; Destination Node                              ; Destination Port ; Destination Port Name ;
-+-------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+-----------------------------------------------+------------------+-----------------------+
-; CLOCK_50~inputCLKENA0               ; Created    ; Placement                                         ; Fitter Periphery Placement ;           ;                ;                                               ;                  ;                       ;
-; elevator_unit:u2|i_current_floor[0] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[0]~DUPLICATE ;                  ;                       ;
-; elevator_unit:u2|i_current_floor[1] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[1]~DUPLICATE ;                  ;                       ;
-; elevator_unit:u2|i_current_floor[3] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[3]~DUPLICATE ;                  ;                       ;
-; elevator_unit:u2|state[0]           ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|state[0]~DUPLICATE           ;                  ;                       ;
-; elevator_unit:u2|state[1]           ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|state[1]~DUPLICATE           ;                  ;                       ;
-; gen_counter:u1|i_count[7]           ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[7]~DUPLICATE           ;                  ;                       ;
-; gen_counter:u1|i_count[15]          ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[15]~DUPLICATE          ;                  ;                       ;
-; gen_counter:u1|i_count[16]          ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[16]~DUPLICATE          ;                  ;                       ;
-+-------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+-----------------------------------------------+------------------+-----------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Netlist Optimizations                                                                                                                                                                                                                                  ;
++---------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+-------------------------------------------------+------------------+-----------------------+
+; Node                                  ; Action     ; Operation                                         ; Reason                     ; Node Port ; Node Port Name ; Destination Node                                ; Destination Port ; Destination Port Name ;
++---------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+-------------------------------------------------+------------------+-----------------------+
+; CLOCK_50~inputCLKENA0                 ; Created    ; Placement                                         ; Fitter Periphery Placement ;           ;                ;                                                 ;                  ;                       ;
+; elevator_unit:u2|i_current_floor[0]   ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[0]~DUPLICATE   ;                  ;                       ;
+; elevator_unit:u2|i_current_floor[1]   ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[1]~DUPLICATE   ;                  ;                       ;
+; elevator_unit:u2|i_current_floor[2]   ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[2]~DUPLICATE   ;                  ;                       ;
+; elevator_unit:u2|i_current_floor[3]   ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|i_current_floor[3]~DUPLICATE   ;                  ;                       ;
+; elevator_unit:u2|prev_target_floor[1] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|prev_target_floor[1]~DUPLICATE ;                  ;                       ;
+; elevator_unit:u2|state[0]             ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|state[0]~DUPLICATE             ;                  ;                       ;
+; elevator_unit:u2|state[1]             ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; elevator_unit:u2|state[1]~DUPLICATE             ;                  ;                       ;
+; gen_counter:u1|i_count[0]             ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[0]~DUPLICATE             ;                  ;                       ;
+; gen_counter:u1|i_count[3]             ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[3]~DUPLICATE             ;                  ;                       ;
+; gen_counter:u1|i_count[4]             ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[4]~DUPLICATE             ;                  ;                       ;
+; gen_counter:u1|i_count[10]            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[10]~DUPLICATE            ;                  ;                       ;
+; gen_counter:u1|i_count[11]            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[11]~DUPLICATE            ;                  ;                       ;
+; gen_counter:u1|i_count[15]            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[15]~DUPLICATE            ;                  ;                       ;
+; gen_counter:u1|i_count[16]            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[16]~DUPLICATE            ;                  ;                       ;
+; gen_counter:u1|i_count[19]            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[19]~DUPLICATE            ;                  ;                       ;
+; gen_counter:u1|i_count[26]            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; gen_counter:u1|i_count[26]~DUPLICATE            ;                  ;                       ;
++---------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+-------------------------------------------------+------------------+-----------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------+
@@ -746,8 +754,8 @@ agreement for further details.
 ; Type                ; Total [A + B]      ; From Design Partitions [A] ; From Rapid Recompile [B] ;
 +---------------------+--------------------+----------------------------+--------------------------+
 ; Placement (by node) ;                    ;                            ;                          ;
-;     -- Requested    ; 0.00 % ( 0 / 335 ) ; 0.00 % ( 0 / 335 )         ; 0.00 % ( 0 / 335 )       ;
-;     -- Achieved     ; 0.00 % ( 0 / 335 ) ; 0.00 % ( 0 / 335 )         ; 0.00 % ( 0 / 335 )       ;
+;     -- Requested    ; 0.00 % ( 0 / 329 ) ; 0.00 % ( 0 / 329 )         ; 0.00 % ( 0 / 329 )       ;
+;     -- Achieved     ; 0.00 % ( 0 / 329 ) ; 0.00 % ( 0 / 329 )         ; 0.00 % ( 0 / 329 )       ;
 ;                     ;                    ;                            ;                          ;
 ; Routing (by net)    ;                    ;                            ;                          ;
 ;     -- Requested    ; 0.00 % ( 0 / 0 )   ; 0.00 % ( 0 / 0 )           ; 0.00 % ( 0 / 0 )         ;
@@ -770,7 +778,7 @@ agreement for further details.
 +--------------------------------+-----------------------+-------------------------+-------------------+---------------------+-------+
 ; Partition Name                 ; Preservation Achieved ; Preservation Level Used ; Netlist Type Used ; Preservation Method ; Notes ;
 +--------------------------------+-----------------------+-------------------------+-------------------+---------------------+-------+
-; Top                            ; 0.00 % ( 0 / 335 )    ; N/A                     ; Source File       ; N/A                 ;       ;
+; Top                            ; 0.00 % ( 0 / 329 )    ; N/A                     ; Source File       ; N/A                 ;       ;
 ; hard_block:auto_generated_inst ; 0.00 % ( 0 / 0 )      ; N/A                     ; Source File       ; N/A                 ;       ;
 +--------------------------------+-----------------------+-------------------------+-------------------+---------------------+-------+
 
@@ -786,14 +794,14 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 +-------------------------------------------------------------+--------------------+-------+
 ; Resource                                                    ; Usage              ; %     ;
 +-------------------------------------------------------------+--------------------+-------+
-; Logic utilization (ALMs needed / total ALMs on device)      ; 106 / 32,070       ; < 1 % ;
-; ALMs needed [=A-B+C]                                        ; 106                ;       ;
-;     [A] ALMs used in final placement [=a+b+c+d]             ; 109 / 32,070       ; < 1 % ;
-;         [a] ALMs used for LUT logic and registers           ; 24                 ;       ;
-;         [b] ALMs used for LUT logic                         ; 78                 ;       ;
-;         [c] ALMs used for registers                         ; 7                  ;       ;
+; Logic utilization (ALMs needed / total ALMs on device)      ; 103 / 32,070       ; < 1 % ;
+; ALMs needed [=A-B+C]                                        ; 103                ;       ;
+;     [A] ALMs used in final placement [=a+b+c+d]             ; 105 / 32,070       ; < 1 % ;
+;         [a] ALMs used for LUT logic and registers           ; 25                 ;       ;
+;         [b] ALMs used for LUT logic                         ; 74                 ;       ;
+;         [c] ALMs used for registers                         ; 6                  ;       ;
 ;         [d] ALMs used for memory (up to half of total ALMs) ; 0                  ;       ;
-;     [B] Estimate of ALMs recoverable by dense packing       ; 3 / 32,070         ; < 1 % ;
+;     [B] Estimate of ALMs recoverable by dense packing       ; 2 / 32,070         ; < 1 % ;
 ;     [C] Estimate of ALMs unavailable [=a+b+c+d]             ; 0 / 32,070         ; 0 %   ;
 ;         [a] Due to location constrained logic               ; 0                  ;       ;
 ;         [b] Due to LAB-wide signal conflicts                ; 0                  ;       ;
@@ -802,24 +810,24 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 ;                                                             ;                    ;       ;
 ; Difficulty packing design                                   ; Low                ;       ;
 ;                                                             ;                    ;       ;
-; Total LABs:  partially or completely used                   ; 14 / 3,207         ; < 1 % ;
-;     -- Logic LABs                                           ; 14                 ;       ;
+; Total LABs:  partially or completely used                   ; 20 / 3,207         ; < 1 % ;
+;     -- Logic LABs                                           ; 20                 ;       ;
 ;     -- Memory LABs (up to half of total LABs)               ; 0                  ;       ;
 ;                                                             ;                    ;       ;
-; Combinational ALUT usage for logic                          ; 155                ;       ;
-;     -- 7 input functions                                    ; 1                  ;       ;
+; Combinational ALUT usage for logic                          ; 149                ;       ;
+;     -- 7 input functions                                    ; 2                  ;       ;
 ;     -- 6 input functions                                    ; 55                 ;       ;
-;     -- 5 input functions                                    ; 23                 ;       ;
-;     -- 4 input functions                                    ; 25                 ;       ;
+;     -- 5 input functions                                    ; 14                 ;       ;
+;     -- 4 input functions                                    ; 27                 ;       ;
 ;     -- <=3 input functions                                  ; 51                 ;       ;
-; Combinational ALUT usage for route-throughs                 ; 1                  ;       ;
-; Dedicated logic registers                                   ; 69                 ;       ;
+; Combinational ALUT usage for route-throughs                 ; 0                  ;       ;
+; Dedicated logic registers                                   ; 77                 ;       ;
 ;     -- By type:                                             ;                    ;       ;
 ;         -- Primary logic registers                          ; 61 / 64,140        ; < 1 % ;
-;         -- Secondary logic registers                        ; 8 / 64,140         ; < 1 % ;
+;         -- Secondary logic registers                        ; 16 / 64,140        ; < 1 % ;
 ;     -- By function:                                         ;                    ;       ;
 ;         -- Design implementation registers                  ; 61                 ;       ;
-;         -- Routing optimization registers                   ; 8                  ;       ;
+;         -- Routing optimization registers                   ; 16                 ;       ;
 ;                                                             ;                    ;       ;
 ; Virtual pins                                                ; 0                  ;       ;
 ; I/O pins                                                    ; 59 / 457           ; 13 %  ;
@@ -875,11 +883,11 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 ; Impedance control blocks                                    ; 0 / 4              ; 0 %   ;
 ; Hard Memory Controllers                                     ; 0 / 2              ; 0 %   ;
 ; Average interconnect usage (total/H/V)                      ; 0.1% / 0.1% / 0.1% ;       ;
-; Peak interconnect usage (total/H/V)                         ; 2.4% / 2.5% / 2.2% ;       ;
-; Maximum fan-out                                             ; 69                 ;       ;
-; Highest non-global fan-out                                  ; 31                 ;       ;
-; Total fan-out                                               ; 975                ;       ;
-; Average fan-out                                             ; 2.83               ;       ;
+; Peak interconnect usage (total/H/V)                         ; 2.1% / 2.2% / 1.8% ;       ;
+; Maximum fan-out                                             ; 77                 ;       ;
+; Highest non-global fan-out                                  ; 37                 ;       ;
+; Total fan-out                                               ; 973                ;       ;
+; Average fan-out                                             ; 2.82               ;       ;
 +-------------------------------------------------------------+--------------------+-------+
 
 
@@ -888,14 +896,14 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 +-------------------------------------------------------------+-----------------------+--------------------------------+
 ; Statistic                                                   ; Top                   ; hard_block:auto_generated_inst ;
 +-------------------------------------------------------------+-----------------------+--------------------------------+
-; Logic utilization (ALMs needed / total ALMs on device)      ; 106 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
-; ALMs needed [=A-B+C]                                        ; 106                   ; 0                              ;
-;     [A] ALMs used in final placement [=a+b+c+d]             ; 109 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
-;         [a] ALMs used for LUT logic and registers           ; 24                    ; 0                              ;
-;         [b] ALMs used for LUT logic                         ; 78                    ; 0                              ;
-;         [c] ALMs used for registers                         ; 7                     ; 0                              ;
+; Logic utilization (ALMs needed / total ALMs on device)      ; 103 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
+; ALMs needed [=A-B+C]                                        ; 103                   ; 0                              ;
+;     [A] ALMs used in final placement [=a+b+c+d]             ; 105 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
+;         [a] ALMs used for LUT logic and registers           ; 25                    ; 0                              ;
+;         [b] ALMs used for LUT logic                         ; 74                    ; 0                              ;
+;         [c] ALMs used for registers                         ; 6                     ; 0                              ;
 ;         [d] ALMs used for memory (up to half of total ALMs) ; 0                     ; 0                              ;
-;     [B] Estimate of ALMs recoverable by dense packing       ; 3 / 32070 ( < 1 % )   ; 0 / 32070 ( 0 % )              ;
+;     [B] Estimate of ALMs recoverable by dense packing       ; 2 / 32070 ( < 1 % )   ; 0 / 32070 ( 0 % )              ;
 ;     [C] Estimate of ALMs unavailable [=a+b+c+d]             ; 0 / 32070 ( 0 % )     ; 0 / 32070 ( 0 % )              ;
 ;         [a] Due to location constrained logic               ; 0                     ; 0                              ;
 ;         [b] Due to LAB-wide signal conflicts                ; 0                     ; 0                              ;
@@ -904,17 +912,17 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 ;                                                             ;                       ;                                ;
 ; Difficulty packing design                                   ; Low                   ; Low                            ;
 ;                                                             ;                       ;                                ;
-; Total LABs:  partially or completely used                   ; 14 / 3207 ( < 1 % )   ; 0 / 3207 ( 0 % )               ;
-;     -- Logic LABs                                           ; 14                    ; 0                              ;
+; Total LABs:  partially or completely used                   ; 20 / 3207 ( < 1 % )   ; 0 / 3207 ( 0 % )               ;
+;     -- Logic LABs                                           ; 20                    ; 0                              ;
 ;     -- Memory LABs (up to half of total LABs)               ; 0                     ; 0                              ;
 ;                                                             ;                       ;                                ;
-; Combinational ALUT usage for logic                          ; 155                   ; 0                              ;
-;     -- 7 input functions                                    ; 1                     ; 0                              ;
+; Combinational ALUT usage for logic                          ; 149                   ; 0                              ;
+;     -- 7 input functions                                    ; 2                     ; 0                              ;
 ;     -- 6 input functions                                    ; 55                    ; 0                              ;
-;     -- 5 input functions                                    ; 23                    ; 0                              ;
-;     -- 4 input functions                                    ; 25                    ; 0                              ;
+;     -- 5 input functions                                    ; 14                    ; 0                              ;
+;     -- 4 input functions                                    ; 27                    ; 0                              ;
 ;     -- <=3 input functions                                  ; 51                    ; 0                              ;
-; Combinational ALUT usage for route-throughs                 ; 1                     ; 0                              ;
+; Combinational ALUT usage for route-throughs                 ; 0                     ; 0                              ;
 ; Memory ALUT usage                                           ; 0                     ; 0                              ;
 ;     -- 64-address deep                                      ; 0                     ; 0                              ;
 ;     -- 32-address deep                                      ; 0                     ; 0                              ;
@@ -922,10 +930,10 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 ; Dedicated logic registers                                   ; 0                     ; 0                              ;
 ;     -- By type:                                             ;                       ;                                ;
 ;         -- Primary logic registers                          ; 61 / 64140 ( < 1 % )  ; 0 / 64140 ( 0 % )              ;
-;         -- Secondary logic registers                        ; 8 / 64140 ( < 1 % )   ; 0 / 64140 ( 0 % )              ;
+;         -- Secondary logic registers                        ; 16 / 64140 ( < 1 % )  ; 0 / 64140 ( 0 % )              ;
 ;     -- By function:                                         ;                       ;                                ;
 ;         -- Design implementation registers                  ; 61                    ; 0                              ;
-;         -- Routing optimization registers                   ; 8                     ; 0                              ;
+;         -- Routing optimization registers                   ; 16                    ; 0                              ;
 ;                                                             ;                       ;                                ;
 ;                                                             ;                       ;                                ;
 ; Virtual pins                                                ; 0                     ; 0                              ;
@@ -942,8 +950,8 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 ;     -- Registered Output Connections                        ; 0                     ; 0                              ;
 ;                                                             ;                       ;                                ;
 ; Internal Connections                                        ;                       ;                                ;
-;     -- Total Connections                                    ; 975                   ; 0                              ;
-;     -- Registered Connections                               ; 372                   ; 0                              ;
+;     -- Total Connections                                    ; 973                   ; 0                              ;
+;     -- Registered Connections                               ; 365                   ; 0                              ;
 ;                                                             ;                       ;                                ;
 ; External Connections                                        ;                       ;                                ;
 ;     -- Top                                                  ; 0                     ; 0                              ;
@@ -975,7 +983,7 @@ The pin-out file can be found in C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee
 +----------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+----------+--------------+--------------+-------------+---------------------------+----------------------+-----------+
 ; Name     ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination ; Termination Control Block ; Location assigned by ; Slew Rate ;
 +----------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+----------+--------------+--------------+-------------+---------------------------+----------------------+-----------+
-; CLOCK_50 ; AF14  ; 3B       ; 32           ; 0            ; 0            ; 69                    ; 0                  ; yes    ; no             ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; --                        ; User                 ; no        ;
+; CLOCK_50 ; AF14  ; 3B       ; 32           ; 0            ; 0            ; 77                    ; 0                  ; yes    ; no             ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; --                        ; User                 ; no        ;
 ; KEY[0]   ; AA14  ; 3B       ; 36           ; 0            ; 0            ; 10                    ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; --                        ; User                 ; no        ;
 ; KEY[1]   ; AA15  ; 3B       ; 36           ; 0            ; 17           ; 1                     ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; --                        ; User                 ; no        ;
 ; SW[0]    ; AB12  ; 3A       ; 12           ; 0            ; 17           ; 17                    ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; --                        ; User                 ; no        ;
@@ -1977,13 +1985,13 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +----------------------------+----------------------+----------------------------------+---------------------------------------------------+----------------------------------+----------------------+---------------------+---------------------------+---------------+-------------------+-------+------------+------+--------------+------------------------------+-----------------+--------------+
 ; Compilation Hierarchy Node ; ALMs needed [=A-B+C] ; [A] ALMs used in final placement ; [B] Estimate of ALMs recoverable by dense packing ; [C] Estimate of ALMs unavailable ; ALMs used for memory ; Combinational ALUTs ; Dedicated Logic Registers ; I/O Registers ; Block Memory Bits ; M10Ks ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name          ; Entity Name     ; Library Name ;
 +----------------------------+----------------------+----------------------------------+---------------------------------------------------+----------------------------------+----------------------+---------------------+---------------------------+---------------+-------------------+-------+------------+------+--------------+------------------------------+-----------------+--------------+
-; |elevator                  ; 105.5 (0.5)          ; 108.0 (0.5)                      ; 2.5 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 155 (1)             ; 69 (0)                    ; 0 (0)         ; 0                 ; 0     ; 0          ; 59   ; 0            ; |elevator                    ; elevator        ; work         ;
-;    |display_driver:u3|     ; 3.3 (3.3)            ; 3.3 (3.3)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 8 (8)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u3  ; display_driver  ; work         ;
-;    |display_driver:u4|     ; 3.5 (3.5)            ; 3.5 (3.5)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u4  ; display_driver  ; work         ;
+; |elevator                  ; 103.0 (0.5)          ; 104.0 (0.5)                      ; 1.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 149 (1)             ; 77 (0)                    ; 0 (0)         ; 0                 ; 0     ; 0          ; 59   ; 0            ; |elevator                    ; elevator        ; work         ;
+;    |display_driver:u3|     ; 2.5 (2.5)            ; 3.0 (3.0)                        ; 0.5 (0.5)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u3  ; display_driver  ; work         ;
+;    |display_driver:u4|     ; 3.3 (3.3)            ; 3.5 (3.5)                        ; 0.2 (0.2)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u4  ; display_driver  ; work         ;
 ;    |display_driver:u7|     ; 7.0 (7.0)            ; 7.0 (7.0)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u7  ; display_driver  ; work         ;
-;    |display_driver:u8|     ; 1.3 (1.3)            ; 2.0 (2.0)                        ; 0.7 (0.7)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 4 (4)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u8  ; display_driver  ; work         ;
-;    |elevator_unit:u2|      ; 64.8 (64.8)          ; 66.7 (66.7)                      ; 1.8 (1.8)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 84 (84)             ; 36 (36)                   ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|elevator_unit:u2   ; elevator_unit   ; work         ;
-;    |gen_counter:u1|        ; 23.0 (23.0)          ; 23.5 (23.5)                      ; 0.5 (0.5)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 41 (41)             ; 33 (33)                   ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|gen_counter:u1     ; gen_counter     ; work         ;
+;    |display_driver:u8|     ; 1.7 (1.7)            ; 2.0 (2.0)                        ; 0.3 (0.3)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 4 (4)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|display_driver:u8  ; display_driver  ; work         ;
+;    |elevator_unit:u2|      ; 62.7 (62.7)          ; 62.7 (62.7)                      ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 79 (79)             ; 38 (38)                   ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|elevator_unit:u2   ; elevator_unit   ; work         ;
+;    |gen_counter:u1|        ; 23.0 (23.0)          ; 23.8 (23.8)                      ; 0.8 (0.8)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 41 (41)             ; 39 (39)                   ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|gen_counter:u1     ; gen_counter     ; work         ;
 ;    |up_down_display:u6|    ; 1.5 (1.5)            ; 1.5 (1.5)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 3 (3)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |elevator|up_down_display:u6 ; up_down_display ; work         ;
 +----------------------------+----------------------+----------------------------------+---------------------------------------------------+----------------------------------+----------------------+---------------------+---------------------------+---------------+-------------------+-------+------------+------+--------------+------------------------------+-----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
@@ -2047,12 +2055,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; HEX5[5]  ; Output   ; -- ; --   ; --   ; -- ; (0)  ; (31)  ; --     ; --                     ; --                       ;
 ; HEX5[6]  ; Output   ; -- ; --   ; --   ; -- ; (0)  ; (31)  ; --     ; --                     ; --                       ;
 ; SW[0]    ; Input    ; -- ; --   ; (0)  ; -- ; --   ; --    ; --     ; --                     ; --                       ;
-; SW[3]    ; Input    ; -- ; --   ; (0)  ; -- ; --   ; --    ; --     ; --                     ; --                       ;
+; SW[3]    ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; SW[1]    ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; SW[2]    ; Input    ; -- ; --   ; (0)  ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; KEY[0]   ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; CLOCK_50 ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
-; KEY[1]   ; Input    ; -- ; --   ; (0)  ; -- ; --   ; --    ; --     ; --                     ; --                       ;
+; KEY[1]   ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 +----------+----------+----+------+------+----+------+-------+--------+------------------------+--------------------------+
 
 
@@ -2080,23 +2088,23 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;      - elevator_unit:u2|i_stop_map~18 ; 1                 ; 0       ;
 ;      - elevator_unit:u2|i_stop_map~20 ; 1                 ; 0       ;
 ; SW[3]                                 ;                   ;         ;
-;      - display_driver:u4|display[0]~0 ; 1                 ; 0       ;
-;      - display_driver:u4|display[1]~1 ; 1                 ; 0       ;
-;      - display_driver:u4|display[2]~2 ; 1                 ; 0       ;
-;      - display_driver:u4|display[3]~3 ; 1                 ; 0       ;
-;      - display_driver:u4|display[4]~4 ; 1                 ; 0       ;
-;      - display_driver:u4|display[5]~5 ; 1                 ; 0       ;
-;      - display_driver:u4|display[6]~6 ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~1  ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~3  ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~5  ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~7  ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~9  ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~11 ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~13 ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~15 ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~18 ; 1                 ; 0       ;
-;      - elevator_unit:u2|i_stop_map~20 ; 1                 ; 0       ;
+;      - display_driver:u4|display[0]~0 ; 0                 ; 0       ;
+;      - display_driver:u4|display[1]~1 ; 0                 ; 0       ;
+;      - display_driver:u4|display[2]~2 ; 0                 ; 0       ;
+;      - display_driver:u4|display[3]~3 ; 0                 ; 0       ;
+;      - display_driver:u4|display[4]~4 ; 0                 ; 0       ;
+;      - display_driver:u4|display[5]~5 ; 0                 ; 0       ;
+;      - display_driver:u4|display[6]~6 ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~1  ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~3  ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~5  ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~7  ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~9  ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~11 ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~13 ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~15 ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~18 ; 0                 ; 0       ;
+;      - elevator_unit:u2|i_stop_map~20 ; 0                 ; 0       ;
 ; SW[1]                                 ;                   ;         ;
 ;      - display_driver:u4|display[0]~0 ; 0                 ; 0       ;
 ;      - display_driver:u4|display[1]~1 ; 0                 ; 0       ;
@@ -2146,20 +2154,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;      - elevator_unit:u2|i_stop_map~20 ; 0                 ; 0       ;
 ; CLOCK_50                              ;                   ;         ;
 ; KEY[1]                                ;                   ;         ;
-;      - elevator_unit:u2|i_door~0      ; 1                 ; 0       ;
+;      - elevator_unit:u2|i_door~0      ; 0                 ; 0       ;
 +---------------------------------------+-------------------+---------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                             ;
-+------------------------------+----------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
-; Name                         ; Location             ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+------------------------------+----------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
-; CLOCK_50                     ; PIN_AF14             ; 69      ; Clock        ; yes    ; Global Clock         ; GCLK6            ; --                        ;
-; gen_counter:u1|LessThan0~4   ; MLABCELL_X87_Y10_N21 ; 31      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
-; gen_counter:u1|i_count[23]~0 ; LABCELL_X88_Y10_N3   ; 31      ; Clock enable ; no     ; --                   ; --               ; --                        ;
-; gen_counter:u1|term          ; FF_X87_Y10_N41       ; 12      ; Clock enable ; no     ; --                   ; --               ; --                        ;
-+------------------------------+----------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                            ;
++------------------------------+---------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; Name                         ; Location            ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++------------------------------+---------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; CLOCK_50                     ; PIN_AF14            ; 77      ; Clock        ; yes    ; Global Clock         ; GCLK6            ; --                        ;
+; gen_counter:u1|LessThan0~4   ; LABCELL_X85_Y10_N12 ; 37      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; gen_counter:u1|i_count[23]~0 ; LABCELL_X85_Y10_N9  ; 37      ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; gen_counter:u1|term          ; FF_X84_Y6_N41       ; 13      ; Clock enable ; no     ; --                   ; --               ; --                        ;
++------------------------------+---------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
 
 
 +-----------------------------------------------------------------------------------------------------+
@@ -2167,7 +2175,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------+----------+---------+----------------------+------------------+---------------------------+
 ; Name     ; Location ; Fan-Out ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
 +----------+----------+---------+----------------------+------------------+---------------------------+
-; CLOCK_50 ; PIN_AF14 ; 69      ; Global Clock         ; GCLK6            ; --                        ;
+; CLOCK_50 ; PIN_AF14 ; 77      ; Global Clock         ; GCLK6            ; --                        ;
 +----------+----------+---------+----------------------+------------------+---------------------------+
 
 
@@ -2176,14 +2184,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------+-------------------------+
 ; Routing Resource Type                       ; Usage                   ;
 +---------------------------------------------+-------------------------+
-; Block interconnects                         ; 312 / 289,320 ( < 1 % ) ;
-; C12 interconnects                           ; 10 / 13,420 ( < 1 % )   ;
-; C2 interconnects                            ; 78 / 119,108 ( < 1 % )  ;
-; C4 interconnects                            ; 73 / 56,300 ( < 1 % )   ;
+; Block interconnects                         ; 296 / 289,320 ( < 1 % ) ;
+; C12 interconnects                           ; 7 / 13,420 ( < 1 % )    ;
+; C2 interconnects                            ; 64 / 119,108 ( < 1 % )  ;
+; C4 interconnects                            ; 68 / 56,300 ( < 1 % )   ;
 ; DQS bus muxes                               ; 0 / 25 ( 0 % )          ;
 ; DQS-18 I/O buses                            ; 0 / 25 ( 0 % )          ;
 ; DQS-9 I/O buses                             ; 0 / 25 ( 0 % )          ;
-; Direct links                                ; 66 / 289,320 ( < 1 % )  ;
+; Direct links                                ; 67 / 289,320 ( < 1 % )  ;
 ; Global clocks                               ; 1 / 16 ( 6 % )          ;
 ; HPS SDRAM PLL inputs                        ; 0 / 1 ( 0 % )           ;
 ; HPS SDRAM PLL outputs                       ; 0 / 1 ( 0 % )           ;
@@ -2239,12 +2247,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; HPS_INTERFACE_TPIU_TRACE_INPUTs             ; 0 / 2 ( 0 % )           ;
 ; HPS_INTERFACE_TPIU_TRACE_OUTPUTs            ; 0 / 33 ( 0 % )          ;
 ; Horizontal periphery clocks                 ; 0 / 72 ( 0 % )          ;
-; Local interconnects                         ; 94 / 84,580 ( < 1 % )   ;
+; Local interconnects                         ; 89 / 84,580 ( < 1 % )   ;
 ; Quadrant clocks                             ; 0 / 66 ( 0 % )          ;
-; R14 interconnects                           ; 38 / 12,676 ( < 1 % )   ;
-; R14/C12 interconnect drivers                ; 42 / 20,720 ( < 1 % )   ;
-; R3 interconnects                            ; 117 / 130,992 ( < 1 % ) ;
-; R6 interconnects                            ; 133 / 266,960 ( < 1 % ) ;
+; R14 interconnects                           ; 33 / 12,676 ( < 1 % )   ;
+; R14/C12 interconnect drivers                ; 34 / 20,720 ( < 1 % )   ;
+; R3 interconnects                            ; 107 / 130,992 ( < 1 % ) ;
+; R6 interconnects                            ; 126 / 266,960 ( < 1 % ) ;
 ; Spine clocks                                ; 1 / 360 ( < 1 % )       ;
 ; Wire stub REs                               ; 0 / 15,858 ( 0 % )      ;
 +---------------------------------------------+-------------------------+
@@ -2418,7 +2426,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------+----------------------+-------------------+
 ; Source Clock(s) ; Destination Clock(s) ; Delay Added in ns ;
 +-----------------+----------------------+-------------------+
-; CLOCK_50        ; CLOCK_50             ; 1.8               ;
+; CLOCK_50        ; CLOCK_50             ; 2.6               ;
 +-----------------+----------------------+-------------------+
 Note: For more information on problematic transfers, consider running the Fitter again with the Optimize hold timing option (Settings Menu) turned off.
 This will disable optimization of problematic paths and expose them for further analysis using the TimeQuest Timing Analyzer.
@@ -2429,34 +2437,33 @@ This will disable optimization of problematic paths and expose them for further 
 +----------------------------------------+----------------------------------------+-------------------+
 ; Source Register                        ; Destination Register                   ; Delay Added in ns ;
 +----------------------------------------+----------------------------------------+-------------------+
-; elevator_unit:u2|i_current_floor[2]    ; elevator_unit:u2|prev_next_floor[2]    ; 0.238             ;
+; elevator_unit:u2|i_current_floor[0]    ; elevator_unit:u2|prev_next_floor[2]    ; 0.263             ;
+; elevator_unit:u2|i_current_floor[1]    ; elevator_unit:u2|prev_next_floor[2]    ; 0.242             ;
 ; elevator_unit:u2|i_current_floor[3]    ; elevator_unit:u2|prev_next_floor[3]    ; 0.221             ;
-; elevator_unit:u2|state[0]              ; elevator_unit:u2|state[0]              ; 0.219             ;
-; elevator_unit:u2|i_stop_map[1]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[6]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[7]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[2]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[4]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[5]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[3]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|state[1]              ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|i_stop_map[8]         ; elevator_unit:u2|prev_target_vector[0] ; 0.195             ;
-; elevator_unit:u2|prev_next_floor[0]    ; elevator_unit:u2|prev_next_floor[0]    ; 0.154             ;
-; elevator_unit:u2|i_current_floor[0]    ; elevator_unit:u2|prev_next_floor[0]    ; 0.152             ;
-; elevator_unit:u2|i_current_floor[1]    ; elevator_unit:u2|prev_next_floor[1]    ; 0.126             ;
-; elevator_unit:u2|prev_status           ; elevator_unit:u2|state[0]              ; 0.121             ;
-; elevator_unit:u2|i_stop_map[0]         ; elevator_unit:u2|state[0]              ; 0.121             ;
-; elevator_unit:u2|i_stop_map[9]         ; elevator_unit:u2|state[0]              ; 0.121             ;
-; elevator_unit:u2|prev_target_vector[0] ; elevator_unit:u2|prev_target_vector[0] ; 0.050             ;
-; elevator_unit:u2|prev_target_floor[2]  ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
-; elevator_unit:u2|prev_target_vector[3] ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
-; elevator_unit:u2|prev_target_floor[0]  ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
-; elevator_unit:u2|prev_target_floor[1]  ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
-; elevator_unit:u2|prev_target_vector[1] ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
-; elevator_unit:u2|prev_target_floor[3]  ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
-; elevator_unit:u2|i_door                ; elevator_unit:u2|prev_next_floor[1]    ; 0.039             ;
+; elevator_unit:u2|state[1]              ; elevator_unit:u2|state[0]              ; 0.217             ;
+; elevator_unit:u2|i_current_floor[2]    ; elevator_unit:u2|prev_next_floor[2]    ; 0.211             ;
+; elevator_unit:u2|prev_target_vector[1] ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[4]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[2]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[3]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[6]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[7]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[9]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[8]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|state[0]              ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|i_stop_map[5]         ; elevator_unit:u2|prev_target_vector[1] ; 0.159             ;
+; elevator_unit:u2|prev_status           ; elevator_unit:u2|prev_status           ; 0.148             ;
+; elevator_unit:u2|prev_target_vector[0] ; elevator_unit:u2|prev_target_vector[0] ; 0.085             ;
+; elevator_unit:u2|i_stop_map[0]         ; elevator_unit:u2|prev_target_vector[0] ; 0.085             ;
+; elevator_unit:u2|i_stop_map[1]         ; elevator_unit:u2|prev_target_vector[0] ; 0.085             ;
+; elevator_unit:u2|prev_target_vector[3] ; elevator_unit:u2|prev_next_floor[2]    ; 0.032             ;
+; elevator_unit:u2|prev_target_floor[2]  ; elevator_unit:u2|prev_next_floor[2]    ; 0.032             ;
+; elevator_unit:u2|prev_target_floor[0]  ; elevator_unit:u2|prev_next_floor[2]    ; 0.032             ;
+; elevator_unit:u2|prev_target_floor[1]  ; elevator_unit:u2|prev_next_floor[2]    ; 0.032             ;
+; elevator_unit:u2|i_door                ; elevator_unit:u2|prev_next_floor[2]    ; 0.032             ;
+; elevator_unit:u2|prev_target_floor[3]  ; elevator_unit:u2|prev_next_floor[2]    ; 0.032             ;
 +----------------------------------------+----------------------------------------+-------------------+
-Note: This table only shows the top 26 path(s) that have the largest delay added for hold.
+Note: This table only shows the top 25 path(s) that have the largest delay added for hold.
 
 
 +-----------------+
@@ -2677,8 +2684,8 @@ Info (170195): Router estimated average interconnect usage is 0% of the availabl
     Info (170196): Router estimated peak interconnect usage is 1% of the available device resources in the region that extends from location X78_Y0 to location X89_Y10
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:06
-Info (11888): Total time spent on timing analysis during the Fitter is 0.73 seconds.
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:07
+Info (11888): Total time spent on timing analysis during the Fitter is 0.71 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -2687,10 +2694,10 @@ Info (11801): Fitter post-fit operations ending: elapsed time is 00:00:08
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Info (144001): Generated suppressed messages file C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/output_files/elevator.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 188 warnings
-    Info: Peak virtual memory: 2326 megabytes
-    Info: Processing ended: Mon Nov 14 23:01:49 2016
-    Info: Elapsed time: 00:01:18
-    Info: Total CPU time (on all processors): 00:01:55
+    Info: Peak virtual memory: 2323 megabytes
+    Info: Processing ended: Mon Nov 14 23:40:46 2016
+    Info: Elapsed time: 00:01:19
+    Info: Total CPU time (on all processors): 00:01:56
 
 
 +----------------------------+
