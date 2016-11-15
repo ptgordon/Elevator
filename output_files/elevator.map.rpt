@@ -1,5 +1,5 @@
 Analysis & Synthesis report for elevator
-Mon Nov 14 00:18:55 2016
+Mon Nov 14 20:57:03 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -13,7 +13,7 @@ Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. Logic Cells Representing Combinational Loops
+  8. Registers Removed During Synthesis
   9. General Register Statistics
  10. Inverted Register Statistics
  11. Multiplexer Restructuring Statistics (Restructuring Performed)
@@ -50,13 +50,13 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Nov 14 00:18:55 2016       ;
+; Analysis & Synthesis Status     ; Successful - Mon Nov 14 20:57:02 2016       ;
 ; Quartus Prime Version           ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                   ; elevator                                    ;
 ; Top-level Entity Name           ; elevator                                    ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 63                                          ;
+; Total registers                 ; 62                                          ;
 ; Total pins                      ; 59                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -194,25 +194,25 @@ agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 110            ;
+; Estimate of Logic utilization (ALMs needed) ; 107            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 170            ;
-;     -- 7 input functions                    ; 3              ;
-;     -- 6 input functions                    ; 45             ;
-;     -- 5 input functions                    ; 22             ;
-;     -- 4 input functions                    ; 46             ;
-;     -- <=3 input functions                  ; 54             ;
+; Combinational ALUT usage for logic          ; 158            ;
+;     -- 7 input functions                    ; 0              ;
+;     -- 6 input functions                    ; 54             ;
+;     -- 5 input functions                    ; 13             ;
+;     -- 4 input functions                    ; 30             ;
+;     -- <=3 input functions                  ; 61             ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 63             ;
+; Dedicated logic registers                   ; 62             ;
 ;                                             ;                ;
 ; I/O pins                                    ; 59             ;
 ;                                             ;                ;
 ; Total DSP Blocks                            ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 63             ;
-; Total fan-out                               ; 991            ;
-; Average fan-out                             ; 2.82           ;
+; Maximum fan-out                             ; 62             ;
+; Total fan-out                               ; 931            ;
+; Average fan-out                             ; 2.75           ;
 +---------------------------------------------+----------------+
 
 
@@ -221,27 +221,26 @@ agreement for further details.
 +----------------------------+-------------------+--------------+-------------------+------------+------+--------------+------------------------------+-----------------+--------------+
 ; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name          ; Entity Name     ; Library Name ;
 +----------------------------+-------------------+--------------+-------------------+------------+------+--------------+------------------------------+-----------------+--------------+
-; |elevator                  ; 170 (0)           ; 63 (0)       ; 0                 ; 0          ; 59   ; 0            ; |elevator                    ; elevator        ; work         ;
+; |elevator                  ; 158 (0)           ; 62 (0)       ; 0                 ; 0          ; 59   ; 0            ; |elevator                    ; elevator        ; work         ;
 ;    |display_driver:u3|     ; 9 (9)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |elevator|display_driver:u3  ; display_driver  ; work         ;
 ;    |display_driver:u4|     ; 7 (7)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |elevator|display_driver:u4  ; display_driver  ; work         ;
 ;    |display_driver:u7|     ; 7 (7)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |elevator|display_driver:u7  ; display_driver  ; work         ;
 ;    |display_driver:u8|     ; 4 (4)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |elevator|display_driver:u8  ; display_driver  ; work         ;
-;    |elevator_unit:u2|      ; 99 (99)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |elevator|elevator_unit:u2   ; elevator_unit   ; work         ;
+;    |elevator_unit:u2|      ; 87 (87)           ; 32 (32)      ; 0                 ; 0          ; 0    ; 0            ; |elevator|elevator_unit:u2   ; elevator_unit   ; work         ;
 ;    |gen_counter:u1|        ; 41 (41)           ; 30 (30)      ; 0                 ; 0          ; 0    ; 0            ; |elevator|gen_counter:u1     ; gen_counter     ; work         ;
 ;    |up_down_display:u6|    ; 3 (3)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |elevator|up_down_display:u6 ; up_down_display ; work         ;
 +----------------------------+-------------------+--------------+-------------------+------------+------+--------------+------------------------------+-----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+------------------------------------------------------------+
-; Logic Cells Representing Combinational Loops               ;
-+--------------------------------------------------------+---+
-; Logic Cell Name                                        ;   ;
-+--------------------------------------------------------+---+
-; elevator_unit:u2|i_target_vector~1                     ;   ;
-; Number of logic cells representing combinational loops ; 1 ;
-+--------------------------------------------------------+---+
-Note: All cells listed above may not be present at the end of synthesis due to various synthesis optimizations.
++-------------------------------------------------------------+
+; Registers Removed During Synthesis                          ;
++----------------------------------------+--------------------+
+; Register name                          ; Reason for Removal ;
++----------------------------------------+--------------------+
+; elevator_unit:u2|prev_target_vector[2] ; Lost fanout        ;
+; Total Number of Removed Registers = 1  ;                    ;
++----------------------------------------+--------------------+
 
 
 +------------------------------------------------------+
@@ -249,7 +248,7 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 63    ;
+; Total registers                              ; 62    ;
 ; Number of registers using Synchronous Clear  ; 28    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
@@ -264,7 +263,7 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; elevator_unit:u2|prev_status           ; 2       ;
+; elevator_unit:u2|prev_status           ; 4       ;
 ; Total number of inverted registers = 1 ;         ;
 +----------------------------------------+---------+
 
@@ -274,16 +273,16 @@ Note: All cells listed above may not be present at the end of synthesis due to v
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
-; 3:1                ; 28 bits   ; 56 LEs        ; 0 LEs                ; 56 LEs                 ; Yes        ; |elevator|gen_counter:u1|i_count[20]   ;
-; 11:1               ; 2 bits    ; 14 LEs        ; 8 LEs                ; 6 LEs                  ; Yes        ; |elevator|elevator_unit:u2|state[0]    ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u3|display[0] ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u7|display[6] ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u8|display[1] ;
+; 3:1                ; 28 bits   ; 56 LEs        ; 0 LEs                ; 56 LEs                 ; Yes        ; |elevator|gen_counter:u1|i_count[22]   ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 10 LEs               ; 4 LEs                  ; Yes        ; |elevator|elevator_unit:u2|state[1]    ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u3|display[6] ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u8|display[5] ;
 ; 5:1                ; 3 bits    ; 9 LEs         ; 9 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u4|display[6] ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 9 LEs                ; 0 LEs                  ; No         ; |elevator|display_driver:u7|display[6] ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |elevator|display_driver:u3|display[2] ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |elevator|display_driver:u4|display[1] ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |elevator|display_driver:u7|display[1] ;
-; 12:1               ; 3 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; No         ; |elevator|elevator_unit:u2|Mux13       ;
+; 11:1               ; 3 bits    ; 21 LEs        ; 6 LEs                ; 15 LEs                 ; No         ; |elevator|elevator_unit:u2|Mux14       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
 
 
@@ -337,27 +336,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 63                          ;
+; arriav_ff             ; 62                          ;
 ;     ENA               ; 4                           ;
 ;     ENA SCLR          ; 28                          ;
-;     plain             ; 31                          ;
-; arriav_lcell_comb     ; 179                         ;
+;     plain             ; 30                          ;
+; arriav_lcell_comb     ; 166                         ;
 ;     arith             ; 28                          ;
 ;         1 data inputs ; 28                          ;
-;     extend            ; 3                           ;
-;         7 data inputs ; 3                           ;
-;     normal            ; 148                         ;
+;     normal            ; 138                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 7                           ;
-;         2 data inputs ; 15                          ;
-;         3 data inputs ; 11                          ;
-;         4 data inputs ; 46                          ;
-;         5 data inputs ; 22                          ;
-;         6 data inputs ; 45                          ;
+;         1 data inputs ; 6                           ;
+;         2 data inputs ; 18                          ;
+;         3 data inputs ; 15                          ;
+;         4 data inputs ; 30                          ;
+;         5 data inputs ; 13                          ;
+;         6 data inputs ; 54                          ;
 ; boundary_port         ; 59                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 7.00                        ;
-; Average LUT depth     ; 3.87                        ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 3.61                        ;
 +-----------------------+-----------------------------+
 
 
@@ -366,7 +363,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:02     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -376,7 +373,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Mon Nov 14 00:18:32 2016
+    Info: Processing started: Mon Nov 14 20:56:40 2016
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off elevator -c elevator
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -420,16 +417,17 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "HEX3[5]" is stuck at VCC File: C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/elevator.vhd Line: 14
     Warning (13410): Pin "HEX5[1]" is stuck at GND File: C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/elevator.vhd Line: 16
 Info (286030): Timing-Driven Synthesis is running
+Info (17049): 1 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 243 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 233 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 7 input pins
     Info (21059): Implemented 52 output pins
-    Info (21061): Implemented 184 logic cells
+    Info (21061): Implemented 174 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 11 warnings
-    Info: Peak virtual memory: 953 megabytes
-    Info: Processing ended: Mon Nov 14 00:18:55 2016
+    Info: Peak virtual memory: 952 megabytes
+    Info: Processing ended: Mon Nov 14 20:57:03 2016
     Info: Elapsed time: 00:00:23
-    Info: Total CPU time (on all processors): 00:00:52
+    Info: Total CPU time (on all processors): 00:00:49
 
 
