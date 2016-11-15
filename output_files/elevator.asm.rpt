@@ -1,5 +1,5 @@
 Assembler report for elevator
-Mon Nov 14 20:58:36 2016
+Mon Nov 14 23:02:04 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -38,7 +38,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Mon Nov 14 20:58:36 2016 ;
+; Assembler Status      ; Successful - Mon Nov 14 23:02:04 2016 ;
 ; Revision Name         ; elevator                              ;
 ; Top-level Entity Name ; elevator                              ;
 ; Family                ; Cyclone V                             ;
@@ -68,8 +68,8 @@ agreement for further details.
 ; Option         ; Setting                                                                                                  ;
 +----------------+----------------------------------------------------------------------------------------------------------+
 ; Device         ; 5CSEMA5F31C6                                                                                             ;
-; JTAG usercode  ; 0x00B3084D                                                                                               ;
-; Checksum       ; 0x00B3084D                                                                                               ;
+; JTAG usercode  ; 0x00B31858                                                                                               ;
+; Checksum       ; 0x00B31858                                                                                               ;
 +----------------+----------------------------------------------------------------------------------------------------------+
 
 
@@ -79,13 +79,13 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Mon Nov 14 20:58:23 2016
+    Info: Processing started: Mon Nov 14 23:01:51 2016
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off elevator -c elevator
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 926 megabytes
-    Info: Processing ended: Mon Nov 14 20:58:36 2016
+    Info: Peak virtual memory: 927 megabytes
+    Info: Processing ended: Mon Nov 14 23:02:04 2016
     Info: Elapsed time: 00:00:13
     Info: Total CPU time (on all processors): 00:00:12
 
