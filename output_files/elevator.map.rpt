@@ -1,5 +1,5 @@
 Analysis & Synthesis report for elevator
-Mon Nov 14 23:39:25 2016
+Wed Nov 16 20:52:04 2016
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -50,7 +50,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Nov 14 23:39:25 2016       ;
+; Analysis & Synthesis Status     ; Successful - Wed Nov 16 20:52:04 2016       ;
 ; Quartus Prime Version           ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                   ; elevator                                    ;
 ; Top-level Entity Name           ; elevator                                    ;
@@ -171,7 +171,7 @@ agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
+;     Processor 2            ;   0.1%      ;
 +----------------------------+-------------+
 
 
@@ -366,7 +366,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:02     ;
+; Top            ; 00:00:03     ;
 +----------------+--------------+
 
 
@@ -376,10 +376,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Mon Nov 14 23:39:02 2016
+    Info: Processing started: Wed Nov 16 20:51:37 2016
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off elevator -c elevator
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file elevator_cortex.vhd
+    Info (12022): Found design unit 1: elevator_cortex-elevator_cortex1 File: C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/elevator_cortex.vhd Line: 24
+    Info (12023): Found entity 1: elevator_cortex File: C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/elevator_cortex.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file display_driver.vhd
     Info (12022): Found design unit 1: display_driver-display_driver1 File: C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/display_driver.vhd Line: 15
     Info (12023): Found entity 1: display_driver File: C:/Users/patto/Desktop/Digital_Logic_Lab/uwm_ee457_vhdl_labs/elevator/display_driver.vhd Line: 8
@@ -428,9 +431,9 @@ Info (21057): Implemented 222 device resources after synthesis - the final resou
     Info (21059): Implemented 52 output pins
     Info (21061): Implemented 163 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 11 warnings
-    Info: Peak virtual memory: 954 megabytes
-    Info: Processing ended: Mon Nov 14 23:39:25 2016
-    Info: Elapsed time: 00:00:23
+    Info: Peak virtual memory: 948 megabytes
+    Info: Processing ended: Wed Nov 16 20:52:04 2016
+    Info: Elapsed time: 00:00:27
     Info: Total CPU time (on all processors): 00:00:51
 
 
