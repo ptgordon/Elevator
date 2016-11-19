@@ -12,14 +12,16 @@ port (
 	reset,  -- not used
 	load_request,  --button that loads the request
 	state_shift,  --commands shift change
+	up_req,
+	down_req,
 	open_req: in	std_logic; -- system clock
-	up_array, down_array, std_logic_vector(top_floor downto 0);
-	request_floor : in unsigned(floor_wide-1 downto 0);  -- floor address being requested
+	up_array, down_array: std_logic_vector(top_floor downto 0);
+	call_floor, request_floor : in unsigned(floor_wide-1 downto 0);  -- floor address being requested
 	door, req_ack : out std_logic;  --open or closed
 	dir : out std_logic_vector(1 downto 0);  -- up or down or idle
 	current_floor,  --displays current floor
 	target_floor: out unsigned(floor_wide-1 downto 0); --displays target floor
-	stop_map,	: out std_logic_vector(top_floor downto 0); --displays stop map
+	stop_map	: out std_logic_vector(top_floor downto 0); --displays stop map
 	currentstate : out unsigned(3 downto 0)
 	);
 end;
@@ -32,10 +34,11 @@ architecture multi_elevator_unit1 of multi_elevator_unit is
 	constant door_open : std_logic_vector(1 downto 0) := "11";
 	signal state, next_state: elevator_state := idle;
 	signal prev_status, i_status : std_logic := '1';
-	signal i_door : std_logic := '0';
+	signal i_door, i_up, i_down : std_logic := '0';
 	signal i_req_ack : std_logic := '0';
 	signal door_state : std_logic := '0';
-	signal i_dir, prev_dir : std_logic_vector(1 downto 0) := idle;
+	signal i_dir, prev_dir : std_logic_vector(1 downto 0) := idle; 
+	signal i_dir_track, prev_dir_track : std_logic_vector(1 downto 0) := down;
 	signal i_current_floor: unsigned(floor_wide-1 downto 0) := (others => '0'); 
 	signal prev_target_floor, i_target_floor : unsigned (floor_wide-1 downto 0) := (others => '0');
 	signal prev_next_floor,i_next_floor : unsigned(floor_wide-1 downto 0) := (others => '0');
@@ -85,6 +88,14 @@ architecture multi_elevator_unit1 of multi_elevator_unit is
 				state <= idle;
 			
 			else
+				if up_req = '0' then
+					i_up <= '1';
+				end if;
+				
+				if down_req = '0' then
+					i_down <= '1';
+				end if;
+				
 				if open_req = '0' then
 					i_door <= '1';
 				end if;
@@ -93,6 +104,8 @@ architecture multi_elevator_unit1 of multi_elevator_unit is
 					state <= next_state;
 					i_current_floor <= i_next_floor;
 					i_door <= '0';
+					i_up <= '0';
+					i_down <= '0';
 				end if;
 			end if;
 		end if;
@@ -101,6 +114,7 @@ architecture multi_elevator_unit1 of multi_elevator_unit is
 	avoid_latch: process (clk) begin
 		if (rising_edge(clk)) then
 			prev_dir <= i_dir;
+			prev_dir_track <= i_dir_track;
 			prev_target_vector <= i_target_vector;
 			prev_target_floor <= i_target_floor;
 			prev_status <= i_status;
@@ -119,74 +133,158 @@ architecture multi_elevator_unit1 of multi_elevator_unit is
 		
 		case state is
 			when idle =>
+				i_dir <= idle;
 				i_target_vector <= set_target(top_floor, idle, i_stop_map);
 				i_target_floor <= i_target_vector(floor_wide-1 downto 0);
 				i_status <= i_target_vector(floor_wide);
-				i_dir <= idle;
-				if up_array(to_integer(i_current_floor)) = '1' then
+				
+				i_target_vector <= set_target(top_floor, idle, up_array);
+				if i_status = '1' then
+					i_target_floor <= i_target_vector(floor_wide-1 downto 0);
+				   i_status <= i_target_vector(floor_wide);
+				end if;
+				
+				i_target_vector <= set_target(top_floor, idle, down_array);
+				if i_status = '1' then
+					i_target_floor <= i_target_vector(floor_wide-1 downto 0);
+					i_status <= i_target_vector(floor_wide);
+				end if;
+				
+				if i_door = '1' then
 					next_state <= door_open;
-				elsif down_array(to_integer(i_current_floor)) = '1' then 
+				elsif i_up = '1' and i_dir /= down and call_floor = i_current_floor then
+					i_dir <= up;
 					next_state <= door_open;
-				elsif i_door = '1' then
+				elsif i_down = '1' and i_dir /= up and call_floor = i_current_floor then
+					i_dir <= down;
 					next_state <= door_open;
 				elsif i_status = '0' then
-					if i_target_floor > i_current_floor then
-						next_state <= up;
-						i_next_floor <= i_current_floor + 1;
-					elsif i_target_floor = i_current_floor then
+					if i_target_vector = i_current_floor then
 						next_state <= door_open;
-					elsif i_target_floor < i_current_floor then
+					elsif i_target_vector > i_current_floor then
+						next_state <= up;
+					elsif i_target_vector < i_current_floor then
 						next_state <= down;
-						i_next_floor <= i_current_floor - 1;
 					end if;
 				end if;
+					
 		
 			when up =>
-				i_req_ack <= '0';
-				i_target_vector <= set_target(top_floor, up, i_stop_map);
-				i_target_floor <= i_target_vector(floor_wide-1 downto 0);
 				i_dir <= up;
-				if up_array(to_integer(i_current_floor)) = '1' then
-					i_req_ack <= '1';
-				elsif i_stop_map(to_integer(i_current_floor)) = '1' then
+				i_target_vector <= set_target(top_floor, up, down_array);
+				i_status <= i_target_vector(top_floor);
+				i_target_floor<= i_target_vector(top_floor-1 downto 0);
+				if i_target_vector(top_floor) = '0' then
+					if i_current_floor = i_target_floor then
+						i_dir <= down;
+					end if;
+				end if;
+				
+				i_target_vector <= set_target(top_floor, up, i_stop_map);
+				if i_target_vector(top_floor) = '0' then
+					if i_status = '1' then
+						i_status <= '0';
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+					elsif i_target_vector(top_floor-1 downto 0) > i_target_floor then
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+						i_dir <= up;
+					end if;
+				end if;
+				
+				i_target_vector <= set_target(top_floor, up, up_array);
+				if i_target_vector(top_floor) = '0' then
+					if i_status = '1' then
+						i_status <= '0';
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+					elsif i_target_vector(top_floor-1 downto 0) >= i_target_floor then
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+						i_dir <= up;
+					end if;
+				end if;
+				
+				
+				if i_status = '1' then
+					next_state <= idle;
+				elsif i_current_floor = i_target_floor then
 					next_state <= door_open;
+				elsif i_current_floor > i_target_floor then
+					next_state <= down;
 				else
 					i_next_floor <= i_current_floor + 1;
 				end if;
 		
 			when down =>
-				i_target_vector <= set_target(top_floor, down, i_stop_map);
-				i_target_floor <= i_target_vector(floor_wide-1 downto 0);
 				i_dir <= down;
-				if i_down_array(to_integer(i_current_floor)) = '1' then
-					i_req_ack = '1';
-				elsif i_stop_map(to_integer(i_current_floor)) = '1' then
+				i_target_vector <= set_target(top_floor, down, up_array);
+				i_status <= i_target_vector(top_floor);
+				i_target_floor<= i_target_vector(top_floor-1 downto 0);
+				if i_target_vector(top_floor) = '0' then
+					if i_current_floor = i_target_floor then
+						i_dir <= up;
+					end if;
+				end if;
+				
+				i_target_vector <= set_target(top_floor, down, i_stop_map);
+				if i_target_vector(top_floor) = '0' then
+					if i_status = '1' then
+						i_status <= '0';
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+					elsif i_target_vector(top_floor-1 downto 0) < i_target_floor then
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+						i_dir <= down;
+					end if;
+				end if;
+				
+				i_target_vector <= set_target(top_floor, down, down_array);
+				if i_target_vector(top_floor) = '0' then
+					if i_status = '1' then
+						i_status <= '0';
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+					elsif i_target_vector(top_floor-1 downto 0) <= i_target_floor then
+						i_target_floor <= i_target_vector(top_floor-1 downto 0);
+						i_dir <= up;
+					end if;
+				end if;
+				
+				
+				if i_status = '1' then
+					next_state <= idle;
+				elsif i_current_floor = i_target_floor then
 					next_state <= door_open;
+				elsif i_current_floor < i_target_floor then
+					next_state <= up;
 				else
 					i_next_floor <= i_current_floor - 1;
 				end if;
 			
-			when door_open =>		
-				if up_array(to_integer(i_current_floor)) = '1' and i_dir /= up then
-					i_req_ack = '1';
-					i_dir = up;
+			when door_open =>
+				if up_array(to_integer(i_current_floor)) = '1' and i_dir /= down then
+					i_req_ack <= '1';
+					i_dir <= up;
 				elsif down_array(to_integer(i_current_floor)) = '1' and i_dir /= up then 
-					i_req_ack = '1';
-					i_dir = down;
-				elsif i_door = '1' then
+					i_req_ack <= '1';
+					i_dir <= down;
+				end if;
+				
+				if i_door = '1' then
 					next_state <= door_open;
-				elsif i_status = '0' then
-					if i_target_floor > i_current_floor then
+				elsif i_up = '1' and i_dir /= down and call_floor = i_current_floor then
+					i_dir <= up;
+					next_state <= door_open;
+				elsif i_down = '1' and i_dir /= up and call_floor = i_current_floor then
+					i_dir <= down;
+					next_state <= door_open;
+				elsif i_status = '1' then
+					next_state <= idle;
+				else 
+					i_stop_map(to_integer(i_current_floor)) <= '0';
+					if i_dir = up then 
 						next_state <= up;
-						--i_next_floor <= i_current_floor + 1;
-					elsif i_target_floor < i_current_floor then
+					elsif i_dir = down then
 						next_state <= down;
-						--i_next_floor <= i_current_floor - 1;
 					else
 						next_state <= idle;
 					end if;
-				else 
-					next_state <= idle;
 				end if;
 			end case;
 		end process;
@@ -199,13 +297,16 @@ architecture multi_elevator_unit1 of multi_elevator_unit is
 		door_state <= '0';
 		dir <= i_dir;
 		req_ack <= i_req_ack;
+		i_dir_track <= prev_dir_track;
 		case state is
 			when idle =>
 				currentstate <= "0000";
 				target_floor <= i_current_floor;
 			when up =>
+				i_dir_track <= up;
 				currentstate <= "0001";
 			when down =>
+				i_dir_track <= down;
 				currentstate <= "0010";
 			when door_open =>
 				currentstate <= "0011";

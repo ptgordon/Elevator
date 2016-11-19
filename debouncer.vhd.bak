@@ -1,0 +1,32 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity debouncer is
+	port (
+		clk : in std_logic;
+		button : in std_logic;
+		debounceced_signal : out std_logic;
+		);
+	end;
+
+architecture debouncer1 of debouncer is
+	signal i_button : std_logic := '0';
+	signal i_count : unsigned(27 downto 0);
+	begin
+		if rising_edge(clk) then
+			i_button <= '1';
+			
+			if button <= '0' then
+				i_button <= '0';
+			end if;
+			
+			if i_button <= '0' then 
+				i_count <= i_count + 1;
+			end if;
+			
+			if i_count = to_unsigned(100000) then
+				i_count <= (others => '0');
+			end if;
+					
+	end;
