@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Fri Nov 18 23:35:23 2016
+Analysis & Synthesis Status : Successful - Fri Nov 25 17:01:59 2016
 Quartus Prime Version : 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 Revision Name : elevator
-Top-level Entity Name : elevator
+Top-level Entity Name : multi_elevator
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 61
-Total pins : 59
+Total registers : 170
+Total pins : 67
 Total virtual pins : 0
 Total block memory bits : 0
 Total DSP Blocks : 0

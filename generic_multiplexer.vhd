@@ -9,6 +9,7 @@ entity generic_multiplexer is
 		output_width : positive --calculated as(floor wide + stop wide + 2)
 		);
 	port (
+		clk : in std_logic;
 		input_array : in unsigned(input_width-1 downto 0);
 		input_sel : in unsigned(select_width-1 downto 0);
 		output : out unsigned(output_width-1 downto 0)
@@ -18,6 +19,10 @@ entity generic_multiplexer is
 architecture generic_multiplexer1 of generic_multiplexer is
 	signal i_input : unsigned(input_width-1 downto 0);
 	begin
-		i_input <= input_array srl to_integer(input_sel);
-		output <= i_input(output_width-1 downto 0);
-	end;
+	multiplex : process(clk) begin
+		if rising_edge(clk) then
+			i_input <= input_array srl (to_integer(input_sel)*output_width);
+			output <= i_input(output_width-1 downto 0);
+		end if;
+	end process;
+end;

@@ -1,0 +1,22 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity modified_multiplexer is
+	generic (
+		input_width : positive;  --calculated as number of elevators *(floor wide + stop wide + 2)
+		output_width : positive --calculated as(floor wide + stop wide + 2)
+		);
+	port (
+		input_array : in unsigned(input_width-1 downto 0);
+		input_sel : in std_logic;
+		output : out unsigned(output_width-1 downto 0)
+		);
+	end;
+
+architecture modified_multiplexer1 of modified_multiplexer is
+	signal i_input : unsigned(input_width-1 downto 0);
+	begin
+		i_input <= input_array srl (to_integer(input_sel)*output_width);
+		output <= i_input(output_width-1 downto 0);
+	end;

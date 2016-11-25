@@ -1,0 +1,71 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity modified_counter is
+	generic (
+		wide : positive;
+		idle_max : positive;
+		up_down_max : positive;
+		open_max : positive
+		);
+	port (
+		clk : in std_logic;
+		inc : in std_logic;
+		data : in std_logic_vector(wide-1 downto 0);
+		state_read : in std_logic_vector(1 downto 0);
+		load : in std_logic;
+		enable : in std_logic;
+		reset : in std_logic;
+		count : out std_logic_vector(wide-1 downto 0);
+		term : out std_logic
+		);
+end;
+
+architecture rtl of modified_counter is
+	constant idle : std_logic_vector(1 downto 0) := "00";
+	constant up : std_logic_vector(1 downto 0) := "01";
+	constant down : std_logic_vector(1 downto 0) := "10";
+	constant door_open : std_logic_vector(1 downto 0) := "11";
+	signal i_count : unsigned(wide-1 downto 0) := (others => '0');
+	signal i_term : std_logic := '0';
+	signal max : positive := idle_max;
+	
+	begin
+		
+		reset_load: process(clk, load, reset, data, inc) begin
+			if (rising_edge(clk)) then 
+				
+				if state_read = up or state_read = down then
+					max <= up_down_max;
+				elsif state_read = door_open then
+					max <= open_max;
+				else
+					max <= idle_max;
+				end if;
+				
+				if (reset = '1') then
+					i_count <= (others => '0');
+					i_term <= '0';
+				elsif load = '1' then
+					i_count <= unsigned(data);
+					i_term <= '0';
+				elsif (inc = '1') and (i_count < max) then
+					i_count <= i_count + 1;
+					i_term <= '0';
+				elsif (inc = '1') and (i_count = max) then
+					i_count <= (others => '0');
+					i_term <= '1';
+				end if;
+				
+				term <= i_term;
+				
+				if (enable = '1') then
+					count <= std_logic_vector(i_count);
+				else
+					count <= (others => 'Z');
+				end if;
+				
+			end if;
+		end process;
+end;
