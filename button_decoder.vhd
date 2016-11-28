@@ -22,7 +22,7 @@ architecture button_decoder1 of button_decoder is
 		if rising_edge(clk) then
 			i_output <= (others=> '1');
 			i_output(0) <= input;
-			output_array <= i_output sll (to_integer(output_sel));
+			output_array <= i_output rol (to_integer(output_sel));
 		end if;
 	end process;
 end;

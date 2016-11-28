@@ -31,6 +31,7 @@ architecture elevator_unit_v1_1 of elevator_unit_v1 is
 	constant up : std_logic_vector(1 downto 0) := "01";
 	constant down : std_logic_vector(1 downto 0) := "10";
 	constant door_open : std_logic_vector(1 downto 0) := "11";
+	constant check_bit : positive := 1;
 	signal state, 
 			 next_state: elevator_state := idle;
 	signal door_state,
@@ -89,7 +90,7 @@ architecture elevator_unit_v1_1 of elevator_unit_v1 is
 		i_next_floor <= prev_next_floor;
 		i_req_ack <= '0';
 		i_stop_mask <= (others=> '0');
-		i_stop_mask(to_integer(i_current_floor) downto 0) <= (others => '1');
+		i_stop_mask(to_integer(i_current_floor)-1 downto 0) <= (others => '1');
 		case state is
 			when idle =>
 				i_dir <= idle;
@@ -128,12 +129,12 @@ architecture elevator_unit_v1_1 of elevator_unit_v1 is
 				
 				elsif i_stop_map > i_stop_mask or 
 						up_array > i_stop_mask or 
-						down_array > i_stop_mask then
+						down_array > (i_stop_mask + (to_unsigned(check_bit, top_floor) sll to_integer(i_current_floor)) then
 					i_next_floor <= i_current_floor + 1;
 					
-				elsif (i_stop_map /= 0 and i_stop_map > i_stop_mask) or 
-				      (up_array /= 0 and up_array < i_stop_mask) or 
-						(down_array /= 0 and down_array < i_stop_mask) then
+				elsif (i_stop_map /= 0) or 
+				      (up_array /= 0) or 
+						(down_array /= 0) then
 					next_state <= down; 
 				
 				else
@@ -146,10 +147,10 @@ architecture elevator_unit_v1_1 of elevator_unit_v1 is
 				if i_stop_map(to_integer(i_current_floor)) = '1' or
 					down_array(to_integer(i_current_floor)) = '1' then
 					next_state <= door_open;
-					 
-				elsif ((i_stop_map xor i_stop_mask) < i_stop_mask) or 
-						((down_array xor i_stop_mask) < i_stop_mask) or
-						((up_array xor i_stop_mask) < i_stop_mask) then
+				
+				elsif ((i_stop_map and i_stop_mask) /= 0) or 
+						((down_array and i_stop_mask) /= 0) or
+						((up_array and i_stop_mask) /= 0) then
 					i_next_floor <= i_current_floor-1;
 				
 				elsif i_stop_map /= 0 or up_array /= 0 or down_array /= 0 then
